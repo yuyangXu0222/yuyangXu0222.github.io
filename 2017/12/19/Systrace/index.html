@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://yoursite.com/2017/12/19/Systrace/assets/markdown-img-paste-20171219195830714.png">
 <meta property="og:image" content="http://yoursite.com/2017/12/19/Systrace/assets/markdown-img-paste-20171219195845714.png">
 <meta property="og:image" content="http://yoursite.com/2017/12/19/Systrace/assets/markdown-img-paste-20171219200232633.png">
-<meta property="og:updated_time" content="2017-12-19T12:33:39.971Z">
+<meta property="og:updated_time" content="2017-12-19T12:41:21.957Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Systrace分析应用程序UI运行性能">
 <meta name="twitter:description" content="Systrace概述Systrace是什么它是Android的SDK中提供的一个分析应用程序UI运行性能的工具(对应的文件夹是SDK / platform-tools / Systrace)。它可以在系统级别上收集和检查设备上运行的所有进程的时序信息，将来自Android内核的数据（如CPU调度程序、磁盘活动和应用程序线程等）结合起来，生成一个HTML报告。一般来说，应用程序需要保证60帧/秒的U">
@@ -187,11 +187,9 @@
 <hr>
 <h1 id="Systrace如何使用"><a href="#Systrace如何使用" class="headerlink" title="Systrace如何使用"></a>Systrace如何使用</h1><h2 id="生成HTML报表步骤"><a href="#生成HTML报表步骤" class="headerlink" title="生成HTML报表步骤"></a>生成HTML报表步骤</h2><ol>
 <li>打开手机调试模式，usb连接手机，运行APP</li>
-</ol>
-<ul>
 <li>启动Systrace（命令行/Android Studio都可以）</li>
 <li>手机上进行需要分析的操作，到了设定的时间即可生成HTML报表</li>
-</ul>
+</ol>
 <p><strong>注意：</strong></p>
 <ul>
 <li>Systrace 要求 Android系统版本为Android 4.3（API Level 18）及以上</li>
@@ -199,11 +197,9 @@
 </ul>
 <h2 id="Android-Studio启动Systrace"><a href="#Android-Studio启动Systrace" class="headerlink" title="Android Studio启动Systrace"></a>Android Studio启动Systrace</h2><ol>
 <li>打开Tools &gt; Android &gt; Android Device Monitor.</li>
-</ol>
-<ul>
 <li>选中设备，点击Capture System<br><img src="assets/markdown-img-paste-20171219194056569.png" alt="Android Device Monitor"></li>
 <li>设置参数，点击OK<br><img src="assets/markdown-img-paste-20171219194248434.png" alt="设置参数"></li>
-</ul>
+</ol>
 <h2 id="命令行启动Systrace"><a href="#命令行启动Systrace" class="headerlink" title="命令行启动Systrace"></a>命令行启动Systrace</h2><p>Systrace直接通过命令行的方式来运行，格式如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python Systrace.py [options] [category1] [category2] ... [categoryN]</span><br></pre></td></tr></table></figure></p>
 <p>其中options各项内容及释义详见 <a href="https://developer.android.com/studio/command-line/Systrace.html" target="_blank" rel="noopener">Android官方文档</a></p>
 <h2 id="分析HTML报表"><a href="#分析HTML报表" class="headerlink" title="分析HTML报表"></a>分析HTML报表</h2><p>用谷歌浏览器打开生成的HTML文件，可以进行性能分析</p>
@@ -211,27 +207,25 @@
 <p>在分析的过程中，我们要特别注意那些绘制时间超过16ms的操作，因为这些很可能是导致掉帧进而导致界面不流畅的原因。同时Systrace也提供了建议信息来帮助我们优化这些问题，例如右边选项卡Alert就是对于程序中当前存在问题的警告；而对于消耗时间过长的操作，则会有特别标注。</p>
 <p>F圆圈表示一帧（Frame）,有绿，黄，红三种状态，渲染时间依次递增。红色的图标F表示当前的操作远超过常规时间，因而需要我们特别注意。</p>
 <p>点击可以查看该Frame详细信息，其中列出了检测的问题以及建议。</p>
-<p><img src="assets/markdown-img-paste-20171219195142415.png" alt=""></p>
+<p><img src="assets/markdown-img-paste-20171219195142415.png" alt="Frame信息"></p>
 <p>浏览文件的过程中，可以使用快捷键：</p>
-<p><img src="assets/markdown-img-paste-20171219195219442.png" alt=""></p>
+<p><img src="assets/markdown-img-paste-20171219195219442.png" alt="快键键"></p>
 <h2 id="自定义Trace"><a href="#自定义Trace" class="headerlink" title="自定义Trace"></a>自定义Trace</h2><p>可以通过Trace类来实现自定义Trace。它能够让你在任何时候跟踪应用的一举一动，在你获取trace的过程中，Trace.beginSection()与Trace.endSection()之间代码工作会一直被追踪。<br><strong>注意：</strong> Trace的begin与end必须在同一线程之中执行</p>
 <p>以下追踪一个简单的点击事件。在生成的报表的左边栏中找到对应的进程和线程，就可以在右边时序图中追踪到这段过程的执行信息<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initEvents</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      mCtrlBtn.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">              <span class="keyword">if</span> (isOpen) &#123;</span><br><span class="line">                  Trace.beginSection(<span class="string">"open"</span>); <span class="comment">//开始追踪</span></span><br><span class="line">                  mColorBtn.setText(<span class="string">"off"</span>);</span><br><span class="line"></span><br><span class="line">                  Trace.beginSection(<span class="string">"yellow"</span>);<span class="comment">//开始追踪</span></span><br><span class="line">                  mColorBtn.setBackgroundColor(Color.YELLOW);</span><br><span class="line">                  Trace.endSection(); <span class="comment">//结束追踪</span></span><br><span class="line"></span><br><span class="line">                  isOpen = <span class="keyword">false</span>;</span><br><span class="line">                  Trace.endSection();  <span class="comment">//结束追踪</span></span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                  Trace.beginSection(<span class="string">"off"</span>);</span><br><span class="line">                  mColorBtn.setText(<span class="string">"open"</span>);</span><br><span class="line"></span><br><span class="line">                  Trace.beginSection(<span class="string">"gray"</span>);</span><br><span class="line">                  mColorBtn.setBackgroundColor(Color.GRAY);</span><br><span class="line">                  Trace.endSection();</span><br><span class="line"></span><br><span class="line">                  isOpen = <span class="keyword">true</span>;</span><br><span class="line">                  Trace.endSection();</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
 <p>可以从中找到我们设定的label</p>
-<p><img src="assets/markdown-img-paste-20171219195830714.png" alt=""></p>
-<p><img src="assets/markdown-img-paste-20171219195845714.png" alt=""></p>
+<p><img src="assets/markdown-img-paste-20171219195830714.png" alt="自定义trace"></p>
+<p><img src="assets/markdown-img-paste-20171219195845714.png" alt="自定义trace"></p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Systrace 可以让开发者对整个Android设备中的进程和线程进行分析。这个工具的优势在于可以针对UI界面的各个绘制帧进行跟踪，从而得出是都存在掉帧的情况，同时还有相应的解决方法推荐。</p>
 <hr>
 <h1 id="HTML报表中的性能指标"><a href="#HTML报表中的性能指标" class="headerlink" title="HTML报表中的性能指标"></a>HTML报表中的性能指标</h1><p>在我们得到的报表中，左边一栏是获取的性能指标名称，涉及到VSync、SurfaceFlinger 、Binder等</p>
-<p> <img src="assets/markdown-img-paste-20171219200232633.png" alt=""></p>
+<p> <img src="assets/markdown-img-paste-20171219200232633.png" alt="性能指标"></p>
 <p>先来简单看看这些指标是什么意思</p>
 <ol>
 <li><strong>VSync是啥？</strong> VSync是一个中断信号源。假设屏幕是60FPS的话，那意味着，每隔1s屏幕就有60次中断信号产生，即每隔16.666ms就会有一次中断信号产生，每次来一个中断信号，就刷新一下屏幕。利用Vsync来刷新UI，可以使得更新UI有序流畅。</li>
-</ol>
-<ul>
 <li><strong>SurfaceFlinge是啥？</strong> SurfaceFlinger 是一个独立的Service，负责管理Android系统的帧缓冲区（Frame Buffer）。Android 的图形系统主干2件事，一是画图，一是合成显示。画图 需要APP调用Canvas API去画，而合成显示就需要SurfaceFlinger了，它拿到APP画好的几张图，合成为一张，然后送到Linux的FrameBuffer 中，最后显示到屏幕上。</li>
 <li><strong>Framebuffer是啥？</strong> FrameBuffer是内核系统提供的图形硬件的抽象描述。之所以称为buffer，是因为它也占用了系统存储空间的一部分。它就相当于一个中间层，对驱动和硬件进行一个封装和管理，便于用户开发图形界面或进行视频输出操作。</li>
 <li><strong>Binder是啥？</strong> Binder是Android系统进程间通信的方式之一。Android应用程序与SurfaceFlinger服务是运行在不同的进程中的，因此，它们采用Binder进程间通信机制来进行通信。</li>
-</ul>
+</ol>
 <p><strong> VSync和SurfaceFlinge等是Android Graphical 模块中的重要角色，它们的相互协作关系我们在下一篇博客中再进行分析。</strong></p>
 <hr>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>

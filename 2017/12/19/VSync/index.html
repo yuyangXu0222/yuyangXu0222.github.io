@@ -14,12 +14,12 @@
 <meta property="og:url" content="http://yoursite.com/2017/12/19/VSync/index.html">
 <meta property="og:site_name" content="yuyangXu的blog">
 <meta property="og:description" content="前言VSync（垂直同步）是啥？ 在上一篇博客中我们已经讲过，它是一个中断信号，用来保证UI刷新的流畅性。VSync的全称是 Vertical Synchronization，这个概念并不是Google首创的，早些年前在PC领域就已经出现了。Google 在Android 4.1 引入了这一概念。VSync是硬件产生的，它需要从硬件到SurfaceFlinge，然后再从SurfaceFlinge到">
-<meta property="og:image" content="http://yoursite.com/2017/12/19/VSync/assets/122001.png">
-<meta property="og:updated_time" content="2017-12-20T07:24:54.162Z">
+<meta property="og:image" content="http://yoursite.com/2017/12/19/VSync/1.png">
+<meta property="og:updated_time" content="2017-12-20T08:07:56.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VSync 信号的传递">
 <meta name="twitter:description" content="前言VSync（垂直同步）是啥？ 在上一篇博客中我们已经讲过，它是一个中断信号，用来保证UI刷新的流畅性。VSync的全称是 Vertical Synchronization，这个概念并不是Google首创的，早些年前在PC领域就已经出现了。Google 在Android 4.1 引入了这一概念。VSync是硬件产生的，它需要从硬件到SurfaceFlinge，然后再从SurfaceFlinge到">
-<meta name="twitter:image" content="http://yoursite.com/2017/12/19/VSync/assets/122001.png">
+<meta name="twitter:image" content="http://yoursite.com/2017/12/19/VSync/1.png">
   
     <link rel="alternative" href="/atom.xml" title="yuyangXu的blog" type="application/atom+xml">
   
@@ -196,7 +196,7 @@
 <p>这里又出现了一个新类，即EventThread，调用了它的onVSyncEven函数。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> EventThread::onVSyncEvent(<span class="keyword">nsecs_t</span> timestamp) &#123;</span><br><span class="line">    Mutex::Autolock _l(mLock);</span><br><span class="line">    mVSyncEvent[<span class="number">0</span>].header.type = DisplayEventReceiver::DISPLAY_EVENT_VSYNC;</span><br><span class="line">    mVSyncEvent[<span class="number">0</span>].header.id = <span class="number">0</span>;</span><br><span class="line">    mVSyncEvent[<span class="number">0</span>].header.timestamp = timestamp;</span><br><span class="line">    mVSyncEvent[<span class="number">0</span>].vsync.count++;</span><br><span class="line">    mCondition.broadcast(); <span class="comment">// 条件满足，唤醒谁？</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这里就是存下VSync，然后将VSync消息发送出去。好了，到这里终于算是告一段落了，以上分析了VSync如何从硬件来到SurfaceFlinger。<br>由于SurfaceFlinger与Android应用程序与是运行在不同的进程中的，因此，SurfaceFlinger通过跨进程通信继续将VSync传递给APP，然后APP的RenderThread实现UI的刷新。</p>
 <p><strong>以上VSync信号的传递过程如下图所示</strong></p>
-<p><img src="assets/122001.png" alt="VSync信号的传递"></p>
+<p><img src="/2017/12/19/VSync/1.png" alt="VSync信号的传递"></p>
 <hr>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
 <li><a href="http://androidxref.com/8.0.0_r4/" target="_blank" rel="noopener">Android Oreo - 8.0.0_r4 源码</a></li>

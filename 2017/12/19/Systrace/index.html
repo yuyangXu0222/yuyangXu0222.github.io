@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Systrace 分析 Android APP UI 运行性能 | yuyangXu的blog</title>
+  <title>利用 Systrace 分析 UI 运行性能 | yuyangXu的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Systrace概述Systrace是什么它是Android的SDK中提供的一个分析应用程序UI运行性能的工具(对应的文件夹是SDK / platform-tools / Systrace)。它可以在系统级别上收集和检查设备上运行的所有进程的时序信息，将来自Android内核的数据（如CPU调度程序、磁盘活动和应用程序线程等）结合起来，生成一个HTML报告。一般来说，应用程序需要保证60帧/秒的U">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Systrace 分析 Android APP UI 运行性能">
+<meta property="og:title" content="利用 Systrace 分析 UI 运行性能">
 <meta property="og:url" content="http://yoursite.com/2017/12/19/Systrace/index.html">
 <meta property="og:site_name" content="yuyangXu的blog">
 <meta property="og:description" content="Systrace概述Systrace是什么它是Android的SDK中提供的一个分析应用程序UI运行性能的工具(对应的文件夹是SDK / platform-tools / Systrace)。它可以在系统级别上收集和检查设备上运行的所有进程的时序信息，将来自Android内核的数据（如CPU调度程序、磁盘活动和应用程序线程等）结合起来，生成一个HTML报告。一般来说，应用程序需要保证60帧/秒的U">
@@ -22,9 +22,9 @@
 <meta property="og:image" content="http://yoursite.com/2017/12/19/Systrace/assets/markdown-img-paste-20171219195830714.png">
 <meta property="og:image" content="http://yoursite.com/2017/12/19/Systrace/assets/markdown-img-paste-20171219195845714.png">
 <meta property="og:image" content="http://yoursite.com/2017/12/19/Systrace/assets/markdown-img-paste-20171219200232633.png">
-<meta property="og:updated_time" content="2017-12-19T12:45:15.901Z">
+<meta property="og:updated_time" content="2017-12-20T06:57:47.816Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Systrace 分析 Android APP UI 运行性能">
+<meta name="twitter:title" content="利用 Systrace 分析 UI 运行性能">
 <meta name="twitter:description" content="Systrace概述Systrace是什么它是Android的SDK中提供的一个分析应用程序UI运行性能的工具(对应的文件夹是SDK / platform-tools / Systrace)。它可以在系统级别上收集和检查设备上运行的所有进程的时序信息，将来自Android内核的数据（如CPU调度程序、磁盘活动和应用程序线程等）结合起来，生成一个HTML报告。一般来说，应用程序需要保证60帧/秒的U">
 <meta name="twitter:image" content="http://yoursite.com/2017/12/19/Systrace/assets/markdown-img-paste-20171219194056569.png">
   
@@ -169,7 +169,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Systrace 分析 Android APP UI 运行性能
+      利用 Systrace 分析 UI 运行性能
     </h1>
   
 
@@ -221,7 +221,7 @@
 <p> <img src="assets/markdown-img-paste-20171219200232633.png" alt="性能指标"></p>
 <p>先来简单看看这些指标是什么意思</p>
 <ol>
-<li><strong>VSync是啥？</strong> VSync是一个中断信号源。假设屏幕是60FPS的话，那意味着，每隔1s屏幕就有60次中断信号产生，即每隔16.666ms就会有一次中断信号产生，每次来一个中断信号，就刷新一下屏幕。利用Vsync来刷新UI，可以使得更新UI有序流畅。</li>
+<li><strong>VSync是啥？</strong> VSync是一个中断信号。假设屏幕是60FPS的话，那意味着，每隔1s屏幕就有60次中断信号产生，即每隔16.666ms就会有一次中断信号产生，每来一个中断信号，就刷新一下屏幕。利用Vsync来刷新UI，可以使得更新UI有序流畅。</li>
 <li><strong>SurfaceFlinge是啥？</strong> SurfaceFlinger 是一个独立的Service，负责管理Android系统的帧缓冲区（Frame Buffer）。Android 的图形系统主干2件事，一是画图，一是合成显示。画图 需要APP调用Canvas API去画，而合成显示就需要SurfaceFlinger了，它拿到APP画好的几张图，合成为一张，然后送到Linux的FrameBuffer 中，最后显示到屏幕上。</li>
 <li><strong>Framebuffer是啥？</strong> FrameBuffer是内核系统提供的图形硬件的抽象描述。之所以称为buffer，是因为它也占用了系统存储空间的一部分。它就相当于一个中间层，对驱动和硬件进行一个封装和管理，便于用户开发图形界面或进行视频输出操作。</li>
 <li><strong>Binder是啥？</strong> Binder是Android系统进程间通信的方式之一。Android应用程序与SurfaceFlinger服务是运行在不同的进程中的，因此，它们采用Binder进程间通信机制来进行通信。</li>
@@ -326,11 +326,15 @@
   
 <nav id="article-nav">
   
-  
-    <a href="/2017/12/19/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
-      <i class="icon-circle-right"></i>
+    <a href="/2017/12/19/VSync/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          VSync 信号的传递
+        
+      </div>
     </a>
+  
   
 </nav>
 

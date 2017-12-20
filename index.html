@@ -151,30 +151,31 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Systrace" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-VSync" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/19/Systrace/">Systrace 分析 Android APP UI 运行性能</a>
+      <a class="article-title" href="/2017/12/19/VSync/">VSync 信号的传递</a>
     </h1>
   
 
         
-        <a href="/2017/12/19/Systrace/" class="archive-article-date">
-  	<time datetime="2017-12-19T10:50:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-19</time>
+        <a href="/2017/12/19/VSync/" class="archive-article-date">
+  	<time datetime="2017-12-19T12:50:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Systrace概述"><a href="#Systrace概述" class="headerlink" title="Systrace概述"></a>Systrace概述</h1><h2 id="Systrace是什么"><a href="#Systrace是什么" class="headerlink" title="Systrace是什么"></a>Systrace是什么</h2><p>它是Android的SDK中提供的一个分析应用程序UI运行性能的工具(对应的文件夹是SDK / platform-tools / Systrace)。它可以在系统级别上收集和检查设备上运行的所有进程的时序信息，将来自Android内核的数据（如CPU调度程序、磁盘活动和应用程序线程等）结合起来，生成一个HTML报告。<br>一般来说，应用程序需要保证60帧/秒的UI绘制速率才能让用户感觉到交互过程中时流畅的，所以我们在开发程序时需要有工具来帮助衡量应用程序是否达到了这一要求，Systrace就可以做到这一点。</p>
-<h2 id="Systrace的原理"><a href="#Systrace的原理" class="headerlink" title="Systrace的原理"></a>Systrace的原理</h2><p>它在代码中插入一些label，通过label的开始和结束来确定某个过程的起始，然后收集该过程对应的运行时间信息，进而得到整个系统的运行性能信息。Android Framework里面一些重要的模块都插入了标记，用户可以在代码中添加自定义的label，这样就组成了一个完成的性能分析系统。<br>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>VSync（垂直同步）是啥？</strong> 在上一篇博客中我们已经讲过，它是一个中断信号，用来保证UI刷新的流畅性。VSync的全称是 Vertical Synchronization，这个概念并不是Google首创的，早些年前在PC领域就已经出现了。Google 在Android 4.1 引入了这一概念。<br>VSync是硬件产生的，它需要从硬件到SurfaceFlinge，然后再从SurfaceFlinge到APP。<br>那么VSync又是如何从一路从硬件传递到SurfaceFlinger的呢？接下来我们通过 <strong>Android Oreo</strong> 版本的源码进行追踪分析</p>
+<hr>
+<h1 id="VSync信号的监听"><a href="#VSync信号的监听" class="headerlink" title="VSync信号的监听"></a>VSync信号的监听</h1><p>Android源码工程的surfaceflinger目录下有一个displayhardware文件夹，其中HWComposer的主要职责之一，就是用于监听Vsync信号。</p>
         
-          <a class="article-more-a" href="/2017/12/19/Systrace/#more">more >></a>
+          <a class="article-more-a" href="/2017/12/19/VSync/#more">more >></a>
         
       
 
@@ -187,7 +188,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/19/Systrace/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/12/19/VSync/">展开全文 >></a>
         </p>
       
 
@@ -217,36 +218,31 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Systrace" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/19/hello-world/">Hello World</a>
+      <a class="article-title" href="/2017/12/19/Systrace/">利用 Systrace 分析 UI 运行性能</a>
     </h1>
   
 
         
-        <a href="/2017/12/19/hello-world/" class="archive-article-date">
-  	<time datetime="2017-12-19T08:09:41.308Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-19</time>
+        <a href="/2017/12/19/Systrace/" class="archive-article-date">
+  	<time datetime="2017-12-19T10:50:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+        <h1 id="Systrace概述"><a href="#Systrace概述" class="headerlink" title="Systrace概述"></a>Systrace概述</h1><h2 id="Systrace是什么"><a href="#Systrace是什么" class="headerlink" title="Systrace是什么"></a>Systrace是什么</h2><p>它是Android的SDK中提供的一个分析应用程序UI运行性能的工具(对应的文件夹是SDK / platform-tools / Systrace)。它可以在系统级别上收集和检查设备上运行的所有进程的时序信息，将来自Android内核的数据（如CPU调度程序、磁盘活动和应用程序线程等）结合起来，生成一个HTML报告。<br>一般来说，应用程序需要保证60帧/秒的UI绘制速率才能让用户感觉到交互过程中时流畅的，所以我们在开发程序时需要有工具来帮助衡量应用程序是否达到了这一要求，Systrace就可以做到这一点。</p>
+<h2 id="Systrace的原理"><a href="#Systrace的原理" class="headerlink" title="Systrace的原理"></a>Systrace的原理</h2><p>它在代码中插入一些label，通过label的开始和结束来确定某个过程的起始，然后收集该过程对应的运行时间信息，进而得到整个系统的运行性能信息。Android Framework里面一些重要的模块都插入了标记，用户可以在代码中添加自定义的label，这样就组成了一个完成的性能分析系统。<br>
+        
+          <a class="article-more-a" href="/2017/12/19/Systrace/#more">more >></a>
+        
       
 
       
@@ -258,7 +254,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/19/hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/12/19/Systrace/">展开全文 >></a>
         </p>
       
 

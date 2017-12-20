@@ -155,7 +155,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>VSync（垂直同步）是啥？</strong> 在上一篇博客中我们已经讲过，它是一个中断信号，用来保证UI刷新的流畅性。VSync的全称是 Vertical Synchronization，这个概念并不是Google首创的，早些年前在PC领域就已经出现了。Google 在Android 4.1 引入了这一概念。<br>VSync是硬件产生的，它需要从硬件到SurfaceFlinge，然后再从SurfaceFlinge到APP。<br>那么VSync又是如何从一路从硬件传递到SurfaceFlinger的呢？接下来我们通过 <strong>Android Oreo</strong> 版本的源码进行追踪分析</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>VSync（垂直同步）是啥？</strong> 在上一篇博客中我们已经讲过，它是一个中断信号，用来保证UI刷新的流畅性。VSync的全称是 Vertical Synchronization，这个概念并不是Google首创的，早些年前在PC领域就已经出现了。Google 在Android 4.1 引入了这一概念。<br>VSync是硬件产生的，它需要从硬件到SurfaceFlinge，然后再从SurfaceFlinge到APP。那么VSync又是如何从一路从硬件传递到SurfaceFlinger的呢？接下来我们通过 <strong>Android Oreo</strong> 版本的源码进行追踪分析</p>
 <hr>
 <h1 id="VSync信号的监听"><a href="#VSync信号的监听" class="headerlink" title="VSync信号的监听"></a>VSync信号的监听</h1><p>Android源码工程的surfaceflinger目录下有一个displayhardware文件夹，其中HWComposer的主要职责之一，就是用于监听Vsync信号。</p>
         
@@ -222,7 +222,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Systrace概述"><a href="#Systrace概述" class="headerlink" title="Systrace概述"></a>Systrace概述</h1><h2 id="Systrace是什么"><a href="#Systrace是什么" class="headerlink" title="Systrace是什么"></a>Systrace是什么</h2><p>它是Android的SDK中提供的一个分析应用程序UI运行性能的工具(对应的文件夹是SDK / platform-tools / Systrace)。它可以在系统级别上收集和检查设备上运行的所有进程的时序信息，将来自Android内核的数据（如CPU调度程序、磁盘活动和应用程序线程等）结合起来，生成一个HTML报告。<br>一般来说，应用程序需要保证60帧/秒的UI绘制速率才能让用户感觉到交互过程中时流畅的，所以我们在开发程序时需要有工具来帮助衡量应用程序是否达到了这一要求，Systrace就可以做到这一点。</p>
+        <h1 id="Systrace概述"><a href="#Systrace概述" class="headerlink" title="Systrace概述"></a>Systrace概述</h1><h2 id="Systrace是什么"><a href="#Systrace是什么" class="headerlink" title="Systrace是什么"></a>Systrace是什么</h2><p>它是Android的SDK中提供的一个分析应用程序UI运行性能的工具(对应的文件夹是SDK / platform-tools / Systrace)。它可以在系统级别上收集和检查设备上运行的所有进程的时序信息，将来自Android内核的数据（如CPU调度程序、磁盘活动和应用程序线程等）结合起来，生成一个HTML报告。<br>一般来说，应用程序需要保证60帧/秒的UI绘制速率才能让用户感觉到交互过程中是流畅的，所以我们在开发程序时需要有工具来帮助衡量应用程序是否达到了这一要求，Systrace就可以做到这一点。</p>
 <h2 id="Systrace的原理"><a href="#Systrace的原理" class="headerlink" title="Systrace的原理"></a>Systrace的原理</h2><p>它在代码中插入一些label，通过label的开始和结束来确定某个过程的起始，然后收集该过程对应的运行时间信息，进而得到整个系统的运行性能信息。Android Framework里面一些重要的模块都插入了标记，用户可以在代码中添加自定义的label，这样就组成了一个完成的性能分析系统。<br></p>
         
           <a class="article-more-a" href="/2017/12/19/Systrace/#more">more >></a>

@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://yoursite.com/2017/12/19/Systrace/6.png">
 <meta property="og:image" content="http://yoursite.com/2017/12/19/Systrace/7.png">
 <meta property="og:image" content="http://yoursite.com/2017/12/19/Systrace/8.png">
-<meta property="og:updated_time" content="2017-12-20T08:10:08.376Z">
+<meta property="og:updated_time" content="2017-12-20T09:03:59.551Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用 Systrace 分析 UI 运行性能">
 <meta name="twitter:description" content="Systrace概述Systrace是什么它是Android的SDK中提供的一个分析应用程序UI运行性能的工具(对应的文件夹是SDK / platform-tools / Systrace)。它可以在系统级别上收集和检查设备上运行的所有进程的时序信息，将来自Android内核的数据（如CPU调度程序、磁盘活动和应用程序线程等）结合起来，生成一个HTML报告。一般来说，应用程序需要保证60帧/秒的U">
@@ -166,7 +166,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Systrace概述"><a href="#Systrace概述" class="headerlink" title="Systrace概述"></a>Systrace概述</h1><h2 id="Systrace是什么"><a href="#Systrace是什么" class="headerlink" title="Systrace是什么"></a>Systrace是什么</h2><p>它是Android的SDK中提供的一个分析应用程序UI运行性能的工具(对应的文件夹是SDK / platform-tools / Systrace)。它可以在系统级别上收集和检查设备上运行的所有进程的时序信息，将来自Android内核的数据（如CPU调度程序、磁盘活动和应用程序线程等）结合起来，生成一个HTML报告。<br>一般来说，应用程序需要保证60帧/秒的UI绘制速率才能让用户感觉到交互过程中时流畅的，所以我们在开发程序时需要有工具来帮助衡量应用程序是否达到了这一要求，Systrace就可以做到这一点。</p>
+        <h1 id="Systrace概述"><a href="#Systrace概述" class="headerlink" title="Systrace概述"></a>Systrace概述</h1><h2 id="Systrace是什么"><a href="#Systrace是什么" class="headerlink" title="Systrace是什么"></a>Systrace是什么</h2><p>它是Android的SDK中提供的一个分析应用程序UI运行性能的工具(对应的文件夹是SDK / platform-tools / Systrace)。它可以在系统级别上收集和检查设备上运行的所有进程的时序信息，将来自Android内核的数据（如CPU调度程序、磁盘活动和应用程序线程等）结合起来，生成一个HTML报告。<br>一般来说，应用程序需要保证60帧/秒的UI绘制速率才能让用户感觉到交互过程中是流畅的，所以我们在开发程序时需要有工具来帮助衡量应用程序是否达到了这一要求，Systrace就可以做到这一点。</p>
 <h2 id="Systrace的原理"><a href="#Systrace的原理" class="headerlink" title="Systrace的原理"></a>Systrace的原理</h2><p>它在代码中插入一些label，通过label的开始和结束来确定某个过程的起始，然后收集该过程对应的运行时间信息，进而得到整个系统的运行性能信息。Android Framework里面一些重要的模块都插入了标记，用户可以在代码中添加自定义的label，这样就组成了一个完成的性能分析系统。<br><a id="more"></a></p>
 <hr>
 <h1 id="Systrace如何使用"><a href="#Systrace如何使用" class="headerlink" title="Systrace如何使用"></a>Systrace如何使用</h1><h2 id="生成HTML报表步骤"><a href="#生成HTML报表步骤" class="headerlink" title="生成HTML报表步骤"></a>生成HTML报表步骤</h2><ol>
@@ -177,7 +177,7 @@
 <p><strong>注意：</strong></p>
 <ul>
 <li>Systrace 要求 Android系统版本为Android 4.3（API Level 18）及以上</li>
-<li>Systrace是由Python书写完成的，因而在用户使用前需要安装Python的运行环境</li>
+<li>Systrace是由Python书写完成的，因而在我们在使用前需要安装Python的运行环境</li>
 </ul>
 <h2 id="Android-Studio启动Systrace"><a href="#Android-Studio启动Systrace" class="headerlink" title="Android Studio启动Systrace"></a>Android Studio启动Systrace</h2><ol>
 <li>打开Tools &gt; Android &gt; Android Device Monitor.</li>
@@ -186,10 +186,10 @@
 </ol>
 <h2 id="命令行启动Systrace"><a href="#命令行启动Systrace" class="headerlink" title="命令行启动Systrace"></a>命令行启动Systrace</h2><p>Systrace直接通过命令行的方式来运行，格式如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python Systrace.py [options] [category1] [category2] ... [categoryN]</span><br></pre></td></tr></table></figure></p>
 <p>其中options各项内容及释义详见 <a href="https://developer.android.com/studio/command-line/Systrace.html" target="_blank" rel="noopener">Android官方文档</a></p>
-<h2 id="分析HTML报表"><a href="#分析HTML报表" class="headerlink" title="分析HTML报表"></a>分析HTML报表</h2><p>用谷歌浏览器打开生成的HTML文件，可以进行性能分析</p>
+<h2 id="分析HTML报表"><a href="#分析HTML报表" class="headerlink" title="分析HTML报表"></a>分析HTML报表</h2><p>用谷歌浏览器打开生成的HTML文件，可以进行性能分析。</p>
 <p><img src="/2017/12/19/Systrace/3.png" alt="HTML报表示例"></p>
-<p>在分析的过程中，我们要特别注意那些绘制时间超过16ms的操作，因为这些很可能是导致掉帧进而导致界面不流畅的原因。同时Systrace也提供了建议信息来帮助我们优化这些问题，例如右边选项卡Alert就是对于程序中当前存在问题的警告；而对于消耗时间过长的操作，则会有特别标注。</p>
 <p>F圆圈表示一帧（Frame）,有绿，黄，红三种状态，渲染时间依次递增。红色的图标F表示当前的操作远超过常规时间，因而需要我们特别注意。</p>
+<p>在分析的过程中，我们要特别注意那些绘制时间超过16ms的操作，因为这些很可能是导致掉帧进而导致界面不流畅的原因。同时Systrace也提供了建议信息来帮助我们优化这些问题，例如右边选项卡Alert就是对于程序中当前存在问题的警告；而对于消耗时间过长的操作，则会有特别标注。</p>
 <p>点击可以查看该Frame详细信息，其中列出了检测的问题以及建议。</p>
 <p><img src="/2017/12/19/Systrace/4.png" alt="Frame信息"></p>
 <p>浏览文件的过程中，可以使用快捷键：</p>
